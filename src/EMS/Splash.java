@@ -3,9 +3,9 @@ package EMS;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+//ActionListener is an interface which if to be implemented actionPerfromer method must be overrided
 import java.awt.event.ActionListener;
-
-public class Splash extends JFrame {
+public class Splash extends JFrame implements ActionListener {
     
     int x;
 
@@ -33,6 +33,7 @@ public class Splash extends JFrame {
         clickhere.setBounds(300, 420, 300, 70);
         clickhere.setBackground(Color.WHITE);
         clickhere.setForeground(Color.DARK_GRAY);
+        clickhere.addActionListener(this);//when clickhere is clicked,this function is called,fuction is definied below
         image.add(clickhere);
         
         // Timer to move the heading to the left
@@ -51,8 +52,14 @@ public class Splash extends JFrame {
         setLocation(200, 50);
         setVisible(true);
     }
+    //ae is parameter aka actionevent
+    public void actionPerformed(ActionEvent ae) {
+        setVisible(false);//closes current frame
+        new Login();//calls login constructor
+    }
     
     public static void main(String args[]) {
         new Splash();
     }
+
 }
