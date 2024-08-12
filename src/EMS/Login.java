@@ -91,5 +91,4 @@ public class Login extends JFrame implements ActionListener {//frame is the gui
         //call constructor
         new Login();
     }
-    //test test
 }
