@@ -2,9 +2,14 @@ package EMS;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
 
-public class Login extends JFrame {//frame is the gui
+public class Login extends JFrame implements ActionListener {//frame is the gui
+    JTextField tfusername,tfpassword;
     Login(){
+
         getContentPane().setBackground(Color.WHITE);
         setLayout(null);//default layout is removed
 
@@ -13,7 +18,7 @@ public class Login extends JFrame {//frame is the gui
         lblusername.setBounds(40,20,100, 30);//set boundry for jlabel username
         add(lblusername);
 
-        JTextField tfusername=new JTextField();
+        tfusername=new JTextField();
         tfusername.setBounds(150,20,100, 30);
         add(tfusername);
 
@@ -22,7 +27,7 @@ public class Login extends JFrame {//frame is the gui
         lblpassword.setBounds(40,70,100, 30);//set boundry for jlabel username
         add(lblpassword);
 
-        JTextField tfpassword=new JTextField();
+        tfpassword=new JTextField();
         tfpassword.setBounds(150,70,100, 30);
         add(tfpassword);
 
@@ -31,6 +36,7 @@ public class Login extends JFrame {//frame is the gui
         loginbutton.setBounds(150,140,150,30);
         loginbutton.setBackground(Color.BLACK);//sets bg of button
         loginbutton.setForeground(Color.WHITE);//sets color of items on button
+        loginbutton.addActionListener(this);
         add(loginbutton);
 
         //image
@@ -52,6 +58,34 @@ public class Login extends JFrame {//frame is the gui
         setSize(600,300);
         setLocation(450,200);
         setVisible(true);//cause inherently the frame is hidden
+    }
+
+    //action performed when login button is clicked
+    public void actionPerformed(ActionEvent ae)
+    {
+        try{
+            String username=tfusername.getText();
+            String password=tfpassword.getText();
+
+            //in order to use statement method here create conn object
+            Conn c=new Conn();
+            String query="select * from login where username= '"+username+"' and password = '"+password+"' ";
+
+            //use statement to execute query
+            ResultSet rs=c.s.executeQuery(query);
+            if(rs.next()){
+                setVisible(false);
+            }
+            else{
+                //used to show dialog to inform the user of something
+                JOptionPane.showMessageDialog(null,"Invalid Username or Password");
+                setVisible(false);
+            }
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     public static void main(String[] args) {
         //call constructor
