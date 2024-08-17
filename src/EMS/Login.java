@@ -75,6 +75,7 @@ public class Login extends JFrame implements ActionListener {//frame is the gui
             ResultSet rs=c.s.executeQuery(query);
             if(rs.next()){
                 setVisible(false);
+                new Home();
             }
             else{
                 //used to show dialog to inform the user of something
